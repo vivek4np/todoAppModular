@@ -25,14 +25,15 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     }
   });
 
-  listArea.addEventListener('click', function(event) {
-    
+  listArea.addEventListener('click', handleListAreaClick);
+
+  function handleListAreaClick(event) {
     if (event.target.className === 'list-title'){
       ctrlShowTaskContainer(event);
     } else {
       ctrlDeleteListItem(event);
     }
-  });
+  }
 
   // Controlling all the actions in left panel
   function ctrlAddListItem() {
@@ -75,8 +76,9 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     }
   });
   
-  taskArea.addEventListener('click', function(event) {
-    
+  taskArea.addEventListener('click', handleTaskAreaClick);
+
+  function handleTaskAreaClick(event) {
     if (event.target.className === 'task-details'){
       ctrlEditTaskItem(event);
     } else if(event.target.className === 'task-checkbox') {
@@ -84,7 +86,7 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     } else {
       ctrlDeleteTaskItem(event);
     }
-  });
+  }
 
   function ctrlAddTaskItem() {
     var taskDetails = taskDetailsInput.value;
