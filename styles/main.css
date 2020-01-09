@@ -1,0 +1,186 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "HelveticaNeue-Roman", "Helvetica", "Open Sans", sans-serif;
+}
+
+body {
+  font-size: 1.3rem;
+  color: #404040;
+  margin: 0;
+}
+  
+h3 {
+    font-size: 24px;
+    line-height: 10px;
+    color : black;
+    vertical-align: middle;
+}
+
+input, button, textarea {
+    font-size: 1.3rem;;
+}
+
+.main-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow-y: hidden;
+}
+
+.list-container {
+    position: fixed;
+    height: 100%;
+    width: 17.4%;
+    overflow-y: auto;
+    border-right: 1px solid black;
+}
+
+.list-heading {
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.list-area {
+    width: 100%;
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
+
+.list-title-container {
+    margin-top: 8px;
+    border: 1px solid black;
+    padding: 10px
+}
+
+.list-title {
+  width: 75%;
+}
+
+.list-button-div {
+    position: relative;
+    bottom: 25px;
+}
+
+.input-list-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    width: 17.3%;
+    border: 1px solid black;
+}
+
+.list-name-input {
+    padding: 7px;
+    float: left;
+    width: auto;
+}
+
+.add-list-name {
+    padding: 8px;
+    width: 21.5%;
+}
+
+.task-container {
+  width: 82.6%;
+  height: 100%;
+  margin-left: 300px;
+  overflow-y: auto;
+}
+
+.list-task-container {
+  margin-left: 170px;
+}
+
+.task-input-area {
+    display:inline-block;
+    margin-top: 45px;
+    margin-left: 170px;
+} 
+
+.task-add-button {
+    margin-top: 6px;
+    padding: 13px;
+}
+
+.task-details-input {
+    width: 800px;
+    height: 55px;
+    margin-left: 80px;
+}
+
+.task-list-container {
+    width: 995px;
+    margin-left: 170px;
+    margin-top: 50px;
+}
+
+.task-details-container {
+  padding: 15px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.task-checkbox {
+    margin: 5px;
+    text-align: center;
+    float: left;
+}
+
+.task-details {
+    margin-left: 20px;
+    display: inline-block;
+    word-wrap: break-word;
+    width: 800px;
+}
+
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
+.taskLineThrough {
+    text-decoration: line-through;
+}
+
+.edit-task-element {
+    margin-left: 20px;
+}
+
+.edit-task-input {
+    width: 700px;
+    padding: 5px;
+    resize: none;
+}
+
+.task-button-div {
+    text-align: center;
+    display: inline-block;
+}
+
+.task-done-button {
+    padding: 5px;
+    position: relative;
+    bottom: 34px;
+}
+
+.active-list {
+    background-color: lightgray;
+}
+
+.show {
+    display: inline-block;
+}
+
+.hide {
+    display: none !important;
+}
+
+.floatLeft {
+  float: left;
+} 
+
+.floatRight {
+  float: right;
+}
