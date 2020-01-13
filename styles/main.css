@@ -140,10 +140,6 @@ input, button, textarea {
     text-decoration: line-through;
 }
 
-.edit-task-element {
-    margin-left: 20px;
-}
-
 .task-button-div {
     text-align: center;
     display: inline-block;
