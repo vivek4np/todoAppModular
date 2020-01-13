@@ -90,10 +90,6 @@ input, button, textarea {
   overflow-y: auto;
 }
 
-.list-task-container {
-  margin-left: 170px;
-}
-
 .task-input-area {
     display:inline-block;
     margin-top: 45px;
@@ -148,21 +144,9 @@ input, button, textarea {
     margin-left: 20px;
 }
 
-.edit-task-input {
-    width: 700px;
-    padding: 5px;
-    resize: none;
-}
-
 .task-button-div {
     text-align: center;
     display: inline-block;
-}
-
-.task-done-button {
-    padding: 5px;
-    position: relative;
-    bottom: 34px;
 }
 
 .active-list {
