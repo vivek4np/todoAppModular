@@ -44,7 +44,7 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     todolistMethods.addList(newList);
 
     // Add list to the UI
-    listUIMethods.createList(newList);
+    listUIMethods.createListUI(newList);
 
     //Clear the List Input Element
     listUIMethods.clearListInput(listNameInput);
@@ -54,7 +54,7 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     activeListId = event.target.parentNode.id;
 
     //Show the active list in the UI
-    listUIMethods.showTaskContainer(activeListId);
+    listUIMethods.showTaskContainerUI(activeListId);
   }
 
   function ctrlDeleteListItem(event) {
@@ -97,7 +97,7 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     activeList.addTask(newTask);
 
     // Add task to the UI
-    taskUIMethods.createTask(newTask, activeList);
+    taskUIMethods.createTaskUI(newTask, activeList);
 
     // Clear the task Input Element
     taskUIMethods.clearTaskInput(taskDetailsInput);
@@ -120,7 +120,7 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     task.setTaskCheck(checkStatus);
 
     // Update the UI with line through on the task
-    taskUIMethods.taskChecked(taskId, checkStatus);
+    taskUIMethods.taskCheckedUI(taskId, checkStatus);
   }
 
   function ctrlDeleteTaskItem(event) {

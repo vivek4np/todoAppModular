@@ -6,7 +6,7 @@ define([], function(){
   1. Select the left section where all list names are displayed
   2. List Title Container (which contains the name of the list and a delete button to delete the list)
   3. It also also calls the function which creates task container on the right section as the new list is created.*/
-  function createList(list){
+  function createListUI(list){
 
     var listArea, listTitleContainer, listTitle, listButtonDiv, deleteListButton;
     var listId = list.getListId();
@@ -41,12 +41,12 @@ define([], function(){
     listArea.appendChild(listTitleContainer);
 
     //creates the task container on the right section.
-    createTaskContainer(listId);
+    createTaskContainerUI(listId);
   }
 
   /*function to create the task container on the UI for each list which is hidden when the list is created, which is
   displayed when user clicks on the list title container, this contains tasks list container which contains all tasks of active list.*/
-  function createTaskContainer(listId){
+  function createTaskContainerUI(listId){
 
     var taskArea, taskListContainer;
 
@@ -61,7 +61,7 @@ define([], function(){
   }
 
   //function to show the task container of the active list
-  function showTaskContainer(currentListId) {
+  function showTaskContainerUI(currentListId) {
     
     if (currentShowingTasksList && currentListContainer) {
       currentShowingTasksList.classList.remove('show');
@@ -97,9 +97,9 @@ define([], function(){
   }
 
   return {
-    createList,
+    createListUI,
     clearListInput,
     deleteListUI,
-    showTaskContainer
+    showTaskContainerUI
   };
 });

@@ -1,7 +1,7 @@
 define([], function(){
   /*A private constructor function from which we can create multiple tasks and each individual task will have
   their own id and name.*/
-  var Task = function (){
+  var Task = function(taskDetails) {
   
     //private static variable intialized once and used to generate task Id.
     var taskIdGenerator = 100;
@@ -12,15 +12,13 @@ define([], function(){
     }
 
     //here we are returning the properties of the task which are Id and name.
-    return function(taskDetails) {
-      this.id = 0;
-      this.details = '';
-      this.checked = false;
+    this.id = 0;
+    this.details = '';
+    this.checked = false;
 
-      this.setTaskId(generateTaskId());
-      this.setTaskDetails(taskDetails);
-    }
-  }();
+    this.setTaskId(generateTaskId());
+    this.setTaskDetails(taskDetails);
+  };
   
   Task.prototype = {
       

@@ -3,7 +3,7 @@ define([], function(){
   /*function to create task element and display in the UI
   1. select the task list container below the task input area.
   2. create a div for each task which will contain checkbox, task details, and delete button.*/
-  function createTask(task, list) {
+  function createTaskUI(task, list) {
     var taskDetailsContainer, taskDetails, taskButtonDiv, deleteTaskButton;
     var listId = list.getListId();
     var taskId = task.getTaskId();
@@ -51,7 +51,7 @@ define([], function(){
   }
   
   //function to mark task as done by adding linethrough class to the details
-  function taskChecked(taskId, checkboxStatus) {
+  function taskCheckedUI(taskId, checkboxStatus) {
     // var currentTask = event.target.task;
     //var taskId = task.getTaskId();
     //var checkboxStatus = event.target.checked;
@@ -59,10 +59,8 @@ define([], function(){
 
     if(!checkboxStatus) {
       taskDetails.classList.remove('taskLineThrough');
-      //task.setTaskCheck(checkboxStatus);
     } else {
       taskDetails.classList.add('taskLineThrough');
-      //task.setTaskCheck(checkboxStatus);
     }
   }
 
@@ -82,9 +80,9 @@ define([], function(){
 
 
   return {
-    createTask,
+    createTaskUI,
     editTask,
-    taskChecked,
+    taskCheckedUI,
     deleteTaskUI,
     clearTaskInput
   };

@@ -2,28 +2,25 @@ define([], function() {
 
   /*A private constructor function from which we can create multiple lists and each individual list will have
   their own id, name and a task list.*/
-  var List = function (){
+  var List = function (listName){
 
     //private static variable intialized once and used to generate list Id.
     var listIdGenerator = 0;
-    
+
     //function to generate listId for every new list creation.
     function generateListId() {
       return listIdGenerator += 1;
     }
-    
-    //here we are returning the properties of the list which are Id, name and task list.
-    //we are using object to store tasks as we need to delete the task
-    return function (listName) {
-        
-      this.id = 0;
-      this.name = '';
-      this.taskList = {};
-  
-      this.setListId(generateListId());
-      this.setListName(listName);
-    }
-  }();
+
+    /*here we are returning the properties of the list which are Id, name and task list.
+    we are using object to store tasks as we need to delete the task */
+    this.id = 0;
+    this.name = '';
+    this.taskList = {};
+
+    this.setListId(generateListId());
+    this.setListName(listName);
+  };
   
   List.prototype = {
 
