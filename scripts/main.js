@@ -4,7 +4,7 @@
   2. Delete the created list.
   3. Create and delete a task inside the list */
 
-define(['./TodoListModule', './ListModule', './ListUIController', './TaskModule', './TaskUIController'], 
+define(['./models/TodoList', './models/List', './views/listView', './models/Task', './views/taskView'], 
 function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods){
 
   var addListButton = document.getElementById('addListButton');
