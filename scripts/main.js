@@ -4,41 +4,49 @@
   2. Delete the created list.
   3. Create and delete a task inside the list */
 
-define(['./models/TodoList', './models/List', './views/listView', './models/Task', './views/taskView'], 
-function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods){
-
-  var addListButton = document.getElementById('addListButton');
-  var listNameInput = document.getElementById('listNameInput');
-  var listArea = document.querySelector('.list-area');
-
-  var addTaskButton = document.getElementById('addTaskButton');
-  var taskDetailsInput = document.getElementById('taskDetailsInput');
-  var taskArea = document.querySelector('.task-area');
+define([
+  "./views/taskInputView",
+  "./models/TodoList",
+  "./models/List",
+  "./views/listView",
+  "./models/Task",
+  "./views/taskView",
+  "./views/base"
+], function(
+  taskInputViewMethods,
+  todolistMethods,
+  listMethods,
+  listUIMethods,
+  taskMethods,
+  taskUIMethods,
+  base
+) {
+  var taskInput = base.DOMStrings.taskTextInput;
   var activeListId;
 
   // Setting up Event Listeners for the left panel
-  addListButton.addEventListener('click', ctrlAddListItem);
-  
-  listNameInput.addEventListener('keypress', function(event) {
+  base.DOMStrings.addListButton.addEventListener("click", ctrlAddListItem);
+
+  base.DOMStrings.listNameInput.addEventListener("keypress", function(event) {
     if (event.keyCode === 13 && !event.shiftKey) {
       ctrlAddListItem();
     }
   });
 
-  listArea.addEventListener('click', handleListAreaClick);
+  base.DOMStrings.listArea.addEventListener("click", handleListAreaClick);
 
   function handleListAreaClick(event) {
-    if (event.target.className === 'list-title'){
+    if (event.target.className === "list-title") {
       ctrlShowTaskContainer(event);
-    } else {
+    } else if (event.target.className === "deleteIcon") {
       ctrlDeleteListItem(event);
     }
   }
 
   // Controlling all the actions in left panel
   function ctrlAddListItem() {
-    var listName = listNameInput.value;
-  
+    var listName = base.DOMStrings.listNameInput.value;
+
     // Add list Item to the List Module
     var newList = listMethods.createListItem(listName);
     todolistMethods.addList(newList);
@@ -47,10 +55,15 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     listUIMethods.createListUI(newList);
 
     //Clear the List Input Element
-    listUIMethods.clearListInput(listNameInput);
+    listUIMethods.clearListInput(base.DOMStrings.listNameInput);
+
+    if (base.DOMStrings.listArea.childElementCount === 1) {
+      activeListId = base.DOMStrings.listArea.childNodes[0].id;
+      listUIMethods.showTaskContainerUI(activeListId);
+    }
   }
 
-  function ctrlShowTaskContainer(event){
+  function ctrlShowTaskContainer(event) {
     activeListId = event.target.parentNode.id;
 
     //Show the active list in the UI
@@ -59,48 +72,105 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
 
   function ctrlDeleteListItem(event) {
     var listId = event.target.parentNode.parentNode.id;
+    var TodoListKeys = Object.keys(todolistMethods.getTodoList());
+    var listIndex = TodoListKeys.indexOf(listId);
 
     // Delete List from the data structure
     todolistMethods.deleteList(listId);
 
     // Delete List from the UI
     listUIMethods.deleteListUI(listId);
+
+    if (activeListId === listId) {
+      if (listIndex > 0) {
+        activeListId = TodoListKeys[listIndex - 1];
+      } else if (listIndex == 0) {
+        activeListId = TodoListKeys[listIndex + 1];
+      }
+      listUIMethods.showTaskContainerUI(activeListId);
+    }
   }
 
   // Setting up Event Listeners for the right panel
-  addTaskButton.addEventListener('click', ctrlAddTaskItem);
+  base.DOMStrings.addTaskButton.addEventListener("click", ctrlAddTaskItem);
 
-  taskDetailsInput.addEventListener('keypress', function(event) {
+  taskInput.addEventListener("keypress", handleEnterKeyTask);
+
+  base.DOMStrings.taskTypeSelect.addEventListener(
+    "change",
+    handleTaskTypeChange
+  );
+
+  base.DOMStrings.taskArea.addEventListener("click", handleTaskAreaClick);
+
+  function handleEnterKeyTask(event) {
     if (event.keyCode === 13 && !event.shiftKey) {
-      ctrlAddTaskItem()
+      ctrlAddTaskItem();
     }
-  });
-  
-  taskArea.addEventListener('click', handleTaskAreaClick);
+  }
+
+  function handleTaskTypeChange(event) {
+    var type = event.target.value;
+    if (type === "text") {
+      taskInput.removeEventListener("keypress", handleEnterKeyTask);
+      taskInputViewMethods.createTaskTextInput();
+      taskInput = document.getElementById("taskTextInput");
+    } else if (type === "image") {
+      taskInput.removeEventListener("keypress", handleEnterKeyTask);
+      taskInputViewMethods.createTaskImageInput();
+      taskInput = document.getElementById("taskImageInput");
+    }
+    taskInput.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13 && !event.shiftKey) {
+        ctrlAddTaskItem();
+      }
+    });
+  }
 
   function handleTaskAreaClick(event) {
-    if (event.target.className === 'task-details'){
+    if (event.target.className === "task-text-details") {
       ctrlEditTaskItem(event);
-    } else if(event.target.className === 'task-checkbox') {
+    } else if (event.target.className === "task-checkbox") {
       ctrlCheckTaskItem(event);
-    } else {
+    } else if (event.target.className === "deleteIcon") {
       ctrlDeleteTaskItem(event);
     }
   }
 
   function ctrlAddTaskItem() {
-    var taskDetails = taskDetailsInput.value;
+    var taskType = base.DOMStrings.taskTypeSelect.value;
     var activeList = todolistMethods.getList(activeListId);
+    var taskDetails, newTask;
 
-    // Add Task to the active list
-    var newTask = taskMethods.createTaskItem(taskDetails, activeList);
-    activeList.addTask(newTask);
+    if (taskType === "text") {
+      taskInput = document.getElementById("taskTextInput");
+      taskDetails = taskInput.value;
+    } else if (taskType === "image") {
+      taskInput = document.getElementById("taskImageInput");
+      taskDetails = taskInput.files[0];
+    }
 
-    // Add task to the UI
-    taskUIMethods.createTaskUI(newTask, activeList);
+    if (!base.DOMStrings.listArea.childElementCount) {
+      alert("Please create a list");
+    } else {
+      if (!activeList) {
+        alert("Please select a List");
+      } else {
+        if (!taskDetails) {
+          alert("Please enter the todo details");
+        } else {
+          // Add Task to the active list
+          newTask = taskMethods.createTaskItem(taskDetails, taskType);
+          activeList.addTask(newTask);
 
-    // Clear the task Input Element
-    taskUIMethods.clearTaskInput(taskDetailsInput);
+          // Add task to the UI
+          taskUIMethods.createTaskUI(newTask, activeList);
+
+          // Clear the task Input Element
+          taskUIMethods.clearTaskInput(taskInput);
+        }
+      }
+    }
   }
 
   function ctrlEditTaskItem(event) {
@@ -117,10 +187,10 @@ function(todolistMethods, listMethods, listUIMethods, taskMethods, taskUIMethods
     var checkStatus = event.target.checked;
 
     // Upate the checked status of Object
-    task.setTaskCheck(checkStatus);
+    task.setTaskCompleted(checkStatus);
 
     // Update the UI with line through on the task
-    taskUIMethods.taskCheckedUI(taskId, checkStatus);
+    taskUIMethods.taskCompletedUI(taskId, checkStatus);
   }
 
   function ctrlDeleteTaskItem(event) {

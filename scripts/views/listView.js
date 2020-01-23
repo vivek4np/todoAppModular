@@ -31,9 +31,9 @@ define([], function(){
     listButtonDiv.setAttribute('class', 'list-button-div floatRight');
 
     //Button to delete the list
-    deleteListButton = document.createElement('button');
-    deleteListButton.setAttribute('class', 'delete-list-button');
-    deleteListButton.textContent = 'Delete';
+    deleteListButton = document.createElement('span');
+    deleteListButton.setAttribute('class', 'deleteIcon');
+    //deleteListButton.textContent = 'Delete';
     listButtonDiv.appendChild(deleteListButton);
 
     listTitleContainer.appendChild(listButtonDiv);
