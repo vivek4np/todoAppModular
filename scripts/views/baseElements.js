@@ -6,7 +6,9 @@ define([], function() {
     addTaskButton: document.getElementById("addTaskButton"),
     taskTypeSelect: document.getElementById("taskTypeSelect"),
     taskArea: document.querySelector(".task-area"),
-    taskTextInput: document.getElementById("taskTextInput")
+    taskTextInput: document.getElementById("taskTextInput"),
+    taskImageInput: document.getElementById("taskImageInput"),
+    taskInputArea: document.querySelector(".task-input-container")
   };
 
   return {

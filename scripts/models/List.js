@@ -4,6 +4,7 @@ define([], function() {
   var List = function(listName) {
     this.id = 0;
     this.name = "";
+    this.active = false;
     this.taskList = {};
 
     this.setListId(List.generateListId());
@@ -31,6 +32,14 @@ define([], function() {
     },
     getListName() {
       return this.name;
+    },
+
+    //List active status getter and setter
+    setActiveListStatus(activeListStatus) {
+      this.active = activeListStatus;
+    },
+    getActiveListStatus() {
+      return this.active;
     },
 
     //Add and Remove task to the list

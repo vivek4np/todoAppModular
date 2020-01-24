@@ -36,7 +36,8 @@ define([], function() {
       img.file = task.getTaskImage();
       taskDetailsContainer.appendChild(img);
 
-      const reader = new FileReader();
+      // Read the uploaded file and render it to the UI
+      var reader = new FileReader();
       reader.onload = (function(aImg) {
         return function(e) {
           aImg.src = e.target.result;

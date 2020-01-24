@@ -4,7 +4,6 @@ define([], function() {
   var Task = function(taskType) {
     this.id = 0;
     this.type = "";
-    //this.details = '';
     this.completed = false;
 
     this.setTaskId(Task.generateTaskId());

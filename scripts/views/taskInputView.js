@@ -1,13 +1,12 @@
-define([], function() {
-  var taskInputArea = document.querySelector(".task-input-container");
-
+define(["./baseElements"], function(baseElements) {
   function createTaskTextInput() {
-    var taskInputImageElement = document.querySelector(".task-image-input");
+    var taskInputImageElement = document.getElementById("taskImageInput");
+    var taskInputTextElement;
 
     if (document.body.contains(taskInputImageElement)) {
       taskInputImageElement.parentNode.removeChild(taskInputImageElement);
 
-      var taskInputTextElement = document.createElement("input");
+      taskInputTextElement = document.createElement("input");
       taskInputTextElement.setAttribute("type", "text");
       taskInputTextElement.setAttribute("class", "task-text-input");
       taskInputTextElement.setAttribute("id", "taskTextInput");
@@ -16,23 +15,28 @@ define([], function() {
         "Enter the task details..."
       );
 
-      taskInputArea.appendChild(taskInputTextElement);
+      baseElements.DOMStrings.taskInputArea.appendChild(taskInputTextElement);
+
+      return taskInputTextElement;
     }
   }
 
   function createTaskImageInput() {
-    var taskInputTextElement = document.querySelector(".task-text-input");
+    var taskInputTextElement = document.getElementById("taskTextInput");
+    var taskInputImageElement;
 
     if (document.body.contains(taskInputTextElement)) {
       taskInputTextElement.parentNode.removeChild(taskInputTextElement);
 
-      var taskInputImageElement = document.createElement("input");
+      taskInputImageElement = document.createElement("input");
       taskInputImageElement.setAttribute("type", "file");
       taskInputImageElement.setAttribute("class", "task-image-input");
       taskInputImageElement.setAttribute("id", "taskImageInput");
       taskInputImageElement.setAttribute("accept", "image/*");
 
-      taskInputArea.appendChild(taskInputImageElement);
+      baseElements.DOMStrings.taskInputArea.appendChild(taskInputImageElement);
+
+      return taskInputImageElement;
     }
   }
 
